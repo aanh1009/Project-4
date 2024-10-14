@@ -42,11 +42,11 @@ public abstract class JobDispatcher {
         return jobs.size();
     }
     public void finishUp(){
-        double finishTime = Double.MIN_VALUE;
         for (Server server: servers){
-            finishTime = Math.max(finishTime, server.remainingWorkInQueue());
+            if (server.remainingWorkInQueue()>0){
+                this.advanceTimeTo(sysTime + server.remainingWorkInQueue());
+            }
         }
-        this.advanceTimeTo(finishTime + getTime());
     }
     public double getAverageWaitingTime(){
         double totalWaitingTime = 0;

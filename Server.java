@@ -22,20 +22,24 @@ public class Server {
     }
     public void processTo(double time){
             double timeLeft = time - sysTime;
-            while (timeLeft>0 & remainingTime>=0){
+            while (timeLeft>=0 & remainingTime>=0){
                 if (jobs.peek()==null){
                     break;
                 }
                 else{
                     Job job = jobs.peek();
-                    double step = Math.min(timeLeft, job.getProcessingTimeNeeded());
+                    if (sysTime < job.getArrivalTime()){
+                        sysTime = job.getArrivalTime();
+                    }
+                    double step = Math.min(timeLeft, job.getProcessingTimeRemaining());
                     job.process(step, sysTime);
                     if (job.isFinished()){
                         Job processedJob = jobs.poll();
                         jobsProcessed+=1;
+                        System.out.println(job);
+                        System.out.println(job.timeInQueue());
 
                     }
-                    System.out.println(job);
                     timeLeft -= step;
                     remainingTime -=step;
                     sysTime += step;
