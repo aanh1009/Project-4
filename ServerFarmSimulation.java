@@ -28,7 +28,7 @@ public class ServerFarmSimulation {
          * to run your experiments
          */
 
-        String dispatcherType = "random"; // Which jobDispatcher to use
+        String dispatcherType = "least"; // Which jobDispatcher to use
 
         // Initialize the job maker with the mean arrival and processing time
         JobMaker jobMaker = new JobMaker(meanArrivalTime, meanProcessingTime);
@@ -38,13 +38,13 @@ public class ServerFarmSimulation {
         if (dispatcherType == "random") {
             dispatcher = new RandomDispatcher(numServers, showViz);
         } 
-        /*else if (dispatcherType == "round") {
+        else if (dispatcherType == "round") {
             dispatcher = new RoundRobinDispatcher(numServers, showViz);
         } else if (dispatcherType == "shortest") {
             dispatcher = new ShortestQueueDispatcher(numServers, showViz);
         } else if (dispatcherType == "least") {
             dispatcher = new LeastWorkDispatcher(numServers, showViz);
-        }*/
+        }
 
         // Have the dispatched handle the specified number of jobs
         for (int i = 0; i < numJobs; i++) {

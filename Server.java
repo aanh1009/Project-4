@@ -1,7 +1,7 @@
-import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Toolkit;
 public class Server {
     private LinkedList<Job> jobs;
     private double sysTime;
@@ -22,28 +22,29 @@ public class Server {
     }
     public void processTo(double time){
             double timeLeft = time - sysTime;
-            while (timeLeft>0){
+            while (timeLeft>0 & remainingTime>=0){
                 if (jobs.peek()==null){
-                    sysTime += timeLeft;
                     break;
                 }
                 else{
                     Job job = jobs.peek();
-                    System.out.println(job);
-                    if(sysTime<job.getArrivalTime()){
-                        sysTime = job.getArrivalTime();
-                    }
                     double step = Math.min(timeLeft, job.getProcessingTimeNeeded());
                     job.process(step, sysTime);
-                    if (job.getProcessingTimeRemaining()==0){
+                    if (job.isFinished()){
                         Job processedJob = jobs.poll();
                         jobsProcessed+=1;
+
                     }
+                    System.out.println(job);
                     timeLeft -= step;
                     remainingTime -=step;
+                    sysTime += step;
+                    if (remainingTime<0){
+                        remainingTime =0;
+                    }
                 }
-                sysTime = time;
             }
+            sysTime = time;
     }
     public double remainingWorkInQueue(){
         return remainingTime;
@@ -63,5 +64,5 @@ public class Server {
         if (remainingWorkInQueue() == 0) g.setColor(Color.GREEN.darker());
         else g.setColor(Color.RED.darker());
         g.fillOval(2 * (int) sep, (int) loc, (int) sep, (int) sep);
-    }
+}
 }

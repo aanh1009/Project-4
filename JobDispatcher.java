@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.awt.Graphics; 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.util.ArrayList;
 public abstract class JobDispatcher {
     ArrayList<Server> servers;
     LinkedList<Job> jobs;
@@ -30,11 +30,11 @@ public abstract class JobDispatcher {
         for (Server server: servers){
             server.processTo(time);
         }
+        visualization.repaint();
     }
     public void handleJob(Job job){
         jobs.add(job);
         this.advanceTimeTo(job.getArrivalTime());
-        visualization.repaint();
         pickServer(job).addJob(job);
         visualization.repaint();
     }
@@ -44,13 +44,14 @@ public abstract class JobDispatcher {
     public void finishUp(){
         double finishTime = Double.MIN_VALUE;
         for (Server server: servers){
-            finishTime = Math.max(finishTime,server.remainingWorkInQueue());
+            finishTime = Math.max(finishTime, server.remainingWorkInQueue());
         }
-        this.advanceTimeTo(finishTime);
+        this.advanceTimeTo(finishTime + getTime());
     }
     public double getAverageWaitingTime(){
         double totalWaitingTime = 0;
         for (Job job: jobs){
+            System.out.println(job.timeInQueue());
             totalWaitingTime += job.timeInQueue();
         }
         return totalWaitingTime/jobs.size();
