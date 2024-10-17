@@ -1,3 +1,4 @@
+
 public class AverageWaitingTimeDispatcher extends JobDispatcher {
     public AverageWaitingTimeDispatcher(int k, boolean showViz){
         super(k, showViz);

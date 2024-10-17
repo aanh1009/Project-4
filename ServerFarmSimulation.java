@@ -1,8 +1,4 @@
-/*
-file name:      ServerFarmSimulation.java
-Authors:        Ike Lage
-last modified:  03/07/2024
-*/
+
 
 public class ServerFarmSimulation {
 

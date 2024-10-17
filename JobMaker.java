@@ -1,8 +1,4 @@
-/*
-file name:      JobMaker.java
-Authors:        Max Bender, Modified by Ike Lage
-last modified:  03/07/2024
-*/
+
 
 import java.util.Iterator;
 import java.util.Random;

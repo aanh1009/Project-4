@@ -1,3 +1,4 @@
+
 import java.util.Iterator;
 public class LinkedList<T> implements Iterable<T>, Queue<T>{
     private class LinkedListIterator implements Iterator<T> {

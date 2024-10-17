@@ -1,3 +1,4 @@
+
 import java.util.Random;
 public class RandomDispatcher extends JobDispatcher {
     public RandomDispatcher(int k, boolean showViz){
