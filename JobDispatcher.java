@@ -34,6 +34,7 @@ public abstract class JobDispatcher {
     }
     public void handleJob(Job job){
         jobs.add(job);
+        visualization.repaint();
         this.advanceTimeTo(job.getArrivalTime());
         pickServer(job).addJob(job);
         visualization.repaint();
@@ -51,7 +52,7 @@ public abstract class JobDispatcher {
     public double getAverageWaitingTime(){
         double totalWaitingTime = 0;
         for (Job job: jobs){
-            System.out.println(job.timeInQueue());
+            if (job.timeInQueue() < 0) System.out.println(job + " : " + job.timeInQueue());
             totalWaitingTime += job.timeInQueue();
         }
         return totalWaitingTime/jobs.size();

@@ -20,7 +20,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -134,7 +133,7 @@ public class ServerFarmViz {
     public void repaint() {
         if ( this.showViz ) {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 public class Server {
     private LinkedList<Job> jobs;
     private double sysTime;
-    private int remainingTime;
+    private double remainingTime;
     private int jobsProcessed;
     private int size;
     public Server(){
@@ -22,30 +22,24 @@ public class Server {
     }
     public void processTo(double time){
             double timeLeft = time - sysTime;
-            while (timeLeft>=0 & remainingTime>=0){
+            // System.out.println("Current time: " + sysTime);
+            // System.out.println("Processing to: " + time);
+            // System.out.println("My Queue: " + jobs.toString());
+            while (timeLeft>0 & remainingTime>0){
                 if (jobs.peek()==null){
                     break;
                 }
                 else{
                     Job job = jobs.peek();
-                    if (sysTime < job.getArrivalTime()){
-                        sysTime = job.getArrivalTime();
-                    }
                     double step = Math.min(timeLeft, job.getProcessingTimeRemaining());
                     job.process(step, sysTime);
                     if (job.isFinished()){
                         Job processedJob = jobs.poll();
                         jobsProcessed+=1;
-                        System.out.println(job);
-                        System.out.println(job.timeInQueue());
-
                     }
-                    timeLeft -= step;
                     remainingTime -=step;
-                    sysTime += step;
-                    if (remainingTime<0){
-                        remainingTime =0;
-                    }
+                    timeLeft -= step;
+                    sysTime = sysTime + step;
                 }
             }
             sysTime = time;
@@ -54,7 +48,7 @@ public class Server {
         return remainingTime;
     }
     public int size(){
-        return size;
+        return jobs.size();
     }
     public void draw(Graphics g, Color c, double loc, int numberOfServers){
         double sep = (ServerFarmViz.HEIGHT - 20) / (numberOfServers + 2.0);

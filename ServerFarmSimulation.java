@@ -14,21 +14,14 @@ public class ServerFarmSimulation {
         // How long a job takes to process, on average
         int meanProcessingTime = 100;
 
-        // Debugging settings
-        int numServers = 4; // Numbers of servers in the farm
-        int numJobs = 10; // Number of jobs to process
-        boolean showViz = true; // Set to true to see the visualization, and false to run your experiments
-        // to speed up the display, you can decrease the sleep time in the ServerFarmViz class.
-
         // Main experiment settings
-        /**
-         * int numServers = 34 ; //Numbers of servers in the farm
-         * int numJobs = 10000000 ; //Number of jobs to process
-         * boolean showViz = false ; //Set to true to see the visualization, and false
-         * to run your experiments
-         */
+        int numServers = 34; // Numbers of servers in the farm
+        int numJobs = 10000000; // Number of jobs to process
+        boolean showViz = true; // Set to true to see the visualization, and false to run your experiments
+        // to speed up the display, you can decrease the sleep time in the ServerFarmViz class.        
+        
 
-        String dispatcherType = "random"; // Which jobDispatcher to use
+        String dispatcherType = "shortest"; // Which jobDispatcher to use
 
         // Initialize the job maker with the mean arrival and processing time
         JobMaker jobMaker = new JobMaker(meanArrivalTime, meanProcessingTime);

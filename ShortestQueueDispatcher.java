@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 public class ShortestQueueDispatcher extends JobDispatcher {
     public ShortestQueueDispatcher(int k, boolean showViz){
         super(k, showViz);
@@ -10,12 +12,15 @@ public class ShortestQueueDispatcher extends JobDispatcher {
                 fewestJobs = server.size();
             }
         }
+        ArrayList<Server> shortestQueues = new ArrayList<>();
         for (Server server: servers){
             if (server.size()==fewestJobs){
-                selectedServer = server;
-                break;
+                shortestQueues.add(server);
             }
         }
+        Random ran = new Random();
+        int chosenServer = ran.nextInt(0,shortestQueues.size());
+        selectedServer = shortestQueues.get(chosenServer);
         return selectedServer;
     }
 }
